@@ -1,7 +1,11 @@
 ---
 permalink: /
+<<<<<<< HEAD
 title: "Gerrit Farren"
 excerpt: "About me"
+=======
+title: "Academic Pages is a ready-to-fork GitHub Pages template for academic personal websites"
+>>>>>>> d8c79553e6cce83a664040018a73754871ea729f
 author_profile: true
 redirect_from: 
   - /about/
