@@ -14,7 +14,7 @@ sections:
       # Show a call-to-action button under your biography? (optional)
       button:
         text: Download CV
-        url: uploads/resume.pdf
+        url: uploads/cv_Farren.pdf
       headings:
         about: ''
         education: ''
@@ -35,14 +35,14 @@ sections:
         shape: circle # Options: circle (default), square, rounded
   - block: markdown
     content:
-      title: '📚 My Research'
+      title: 'My Research'
       subtitle: ''
       text: |-
-        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+        My research centers on deriving insights on fundamental physics from large scale cosmological surveys. I particularly focus on cross-correlating datasets from different surveys to leverage complementary information and mitgate potential biases. I combine, for example, observations of the Cosmic Microwave Background and it's gravitational lensing with with Galaxy Surveys.
 
-        I apply a range of qualitative and quantitative methods to comprehensively investigate the role of science and technology in the economy.
+        I use Baysesian statistics and high performance, distributed computing to turn the large data sets from today's surveys into constraints on the physics of our Universe. I build pipelines that ensure the quality and reliability of our products from start to finish.
 
-        Please reach out to collaborate 😃
+        I play a leading role in the [Simons Observatory (SO)](https://simonsobservatory.org/) and [Dark Energy Spectroscopic Instrument (DESI)](https://www.desi.lbl.gov/) collaborations. I am also a member of [LSST DESC](https://www.lsstdesc.org/).
     design:
       columns: '1'
   - block: collection
