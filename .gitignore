@@ -15,6 +15,9 @@ resources/
 # Hugo build lock
 .hugo_build.lock
 
+# Local agent / editor scratch
+.claude/
+
 # Hugo stats
 hugo_stats.json
 

@@ -1,0 +1,26 @@
+{{ $paginator := .Paginator }}
+{{ if or $paginator.HasPrev $paginator.HasNext }}
+<nav class="mt-6 flex flex-col items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400" aria-label="pagination">
+  <div>
+    Page <span class="font-medium text-zinc-700 dark:text-zinc-200">{{ $paginator.PageNumber }}</span>
+    of <span class="font-medium text-zinc-700 dark:text-zinc-200">{{ $paginator.TotalPages }}</span>
+    · <span class="font-medium text-zinc-700 dark:text-zinc-200">{{ $paginator.TotalNumberOfElements }}</span>
+    {{ T "items" | default "items" }} total
+  </div>
+  <ul class="flex justify-center items-center gap-1">
+    {{ if $paginator.HasPrev }}
+      <li><a class="px-3 py-1 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800" href="{{ $paginator.Prev.URL }}">&laquo; {{ T "previous" | default "Previous" }}</a></li>
+    {{ end }}
+    {{ range $paginator.Pagers }}
+      {{ if eq .PageNumber $paginator.PageNumber }}
+        <li><span class="px-3 py-1 rounded bg-primary-100 dark:bg-primary-900/40 text-primary-800 dark:text-primary-200 font-medium">{{ .PageNumber }}</span></li>
+      {{ else }}
+        <li><a class="px-3 py-1 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800" href="{{ .URL }}">{{ .PageNumber }}</a></li>
+      {{ end }}
+    {{ end }}
+    {{ if $paginator.HasNext }}
+      <li><a class="px-3 py-1 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800" href="{{ $paginator.Next.URL }}">{{ T "next" | default "Next" }} &raquo;</a></li>
+    {{ end }}
+  </ul>
+</nav>
+{{ end }}

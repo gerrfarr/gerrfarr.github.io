@@ -13,9 +13,9 @@ postnominals:
 status:
   icon: ""
 role: "Cosmologist & Data Scientist | Mapping the Universe at Scale"
-bio: "I am a cosmologist using multi-probe data to understand the universe at scale.\nI build pipleines that leverage advanced statistical tecniques and high performance computing to turn the data from modern cosmological surveys into physics insights. I am passionate about ensuring the robustness and reliability of our data products and anlyses.\n"
+bio: "Cosmologist working on multi-probe analyses of the largest cosmological datasets. I build large scale analysis pipelines that combine Bayesian inference, distributed/HPC computing, and careful systematics control to turn modern survey data into robust physical insight.\n"
 affiliations:
-  - name: "LawrenceBerkeley National Laboratory, Physics Division"
+  - name: "Lawrence Berkeley National Laboratory, Physics Division"
     url: "https://www.physics.lbl.gov//"
   - name: "University of California, Berkeley, Berkeley Center for Cosmological Physics"
     url: "https://bccp.berkeley.edu/"
@@ -43,9 +43,9 @@ education:
     end: "July 2024"
     summary: "Thesis on probing the physics of the universe with multi-probe large scale structure analyses.\n"
     button:
-      text: "Download dissertation"
-      url: "/resume.pdf"
-      icon: "hero/arrow-down-tray"
+      text: "Read dissertation"
+      url: "https://doi.org/10.17863/cam.112076"
+      icon: "hero/arrow-top-right-on-square"
   - degree: "BSc Physics"
     institution: "Haverford College, PA"
     start: "Aug 2016"
@@ -53,7 +53,7 @@ education:
 experience:
   - role: "Chamberlain Postdoctoral Fellow"
     org: "Lawrence Berkeley National Laboratory, CA"
-    start: "2029-09-22"
+    start: "2024-09-22"
     summary: "Leading CMB lensing cross-correlation analyses as part of the Dark Energy Spectroscopic Instrument and Simons Observatory collaborations.\n"
   - role: "PhD Researcher"
     org: "University of Cambridge, UK"
