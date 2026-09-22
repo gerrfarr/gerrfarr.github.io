@@ -27,3 +27,7 @@ mounts:
     target: layouts
   - source: assets
     target: assets
+  - source: cv/cv_G_Farren.pdf
+    target: static/cv/cv_G_Farren.pdf
+  - source: resume/resume_G_Farren.pdf
+    target: static/resume/resume_G_Farren.pdf

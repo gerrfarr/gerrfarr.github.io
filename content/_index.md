@@ -11,10 +11,12 @@ sections:
       # Choose a user profile to display (a folder name within `content/authors/`)
       username: me
       text: ''
-      # Show a call-to-action button under your biography? (optional)
-      button:
-        text: Download CV
-        url: uploads/cv_Farren.pdf
+      # Download the public versions; private application builds are never mounted.
+      buttons:
+        - text: Download CV
+          url: cv/cv_G_Farren.pdf
+        - text: Download Resume
+          url: resume/resume_G_Farren.pdf
       headings:
         about: ''
         education: ''

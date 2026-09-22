@@ -70,3 +70,34 @@ Desktop.ini
 
 *.log
 npm-debug.log*
+
+# Local package-manager cache
+.pnpm-store/
+/private-contact.tex
+
+# LaTeX build artifacts. Sources and the two public PDFs stay versioned.
+cv/*.aux
+cv/*.bcf
+cv/*.bbl
+cv/*.blg
+cv/*.fdb_latexmk
+cv/*.fls
+cv/*.out
+cv/*.run.xml
+cv/*.synctex.gz
+cv/cv.pdf
+cv/cv-application.pdf
+cv/cv_G_Farren-application.pdf
+
+resume/*.aux
+resume/*.bcf
+resume/*.bbl
+resume/*.blg
+resume/*.fdb_latexmk
+resume/*.fls
+resume/*.out
+resume/*.run.xml
+resume/*.synctex.gz
+resume/industry_resume.pdf
+resume/resume-application.pdf
+resume/resume_G_Farren-application.pdf

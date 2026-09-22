@@ -1,0 +1,176 @@
+\documentclass[11pt,a4paper,sans]{moderncv}
+
+\moderncvstyle{classic}
+\moderncvcolor{blue}
+\nopagenumbers{}
+
+% Building with jobname cv_G_Farren-application enables private contact details.
+% The default cv_G_Farren.pdf is safe to publish on the website.
+\newif\ifapplicationcv
+\ifnum\pdfstrcmp{\jobname}{cv_G_Farren-application}=0
+  \applicationcvtrue
+\else
+  \applicationcvfalse
+\fi
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[scale=0.86]{geometry}
+\usepackage{xfrac}
+\usepackage{csquotes}
+\setlength{\hintscolumnwidth}{4cm}
+
+% The website and CV deliberately use the same publication database.
+% Keep selection and ordering here; keep all publication metadata in ../publications.bib.
+\usepackage[
+  backend=biber,
+  style=authoryear,
+  sorting=none,
+  giveninits=true,
+  maxbibnames=10,
+  minbibnames=4,
+  doi=true,
+  url=false,
+  isbn=false
+]{biblatex}
+\addbibresource{../publications.bib}
+
+% Preserve the compact prose bibliography used by the older CV while retaining
+% the shared website BibTeX as the only publication-data source.
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map[overwrite]{
+      \step[fieldsource=entrykey, match=\regexp{^AtacamaCosmologyTelescope:2025blo$}, final]
+      \step[fieldset=author, fieldvalue={{{The Atacama Cosmology Telescope Collaboration \mkbibbold{(incl. GSF)}}}}]
+    }
+    \map[overwrite]{
+      \step[fieldsource=entrykey, match=\regexp{^AtacamaCosmologyTelescope:2025nti$}, final]
+      \step[fieldset=author, fieldvalue={{{The Atacama Cosmology Telescope Collaboration \mkbibbold{(incl. GSF)}}}}]
+    }
+    \map[overwrite]{
+      \step[fieldsource=entrykey, match=\regexp{^Qu:2024sfu$}, final]
+      \step[fieldset=author, fieldvalue={{{The ACT and DESI Collaborations \mkbibbold{(incl. GSF)}}}}]
+    }
+    \map[overwrite]{
+      \step[fieldsource=entrykey, match=\regexp{^ACT:2023kun$}, final]
+      \step[fieldset=author, fieldvalue={{{The ACT Collaboration \mkbibbold{(incl. GSF)}}}}]
+    }
+    \map[overwrite]{
+      \step[fieldsource=entrykey, match=\regexp{^ACT:2023dou$}, final]
+      \step[fieldset=author, fieldvalue={{{The ACT Collaboration \mkbibbold{(incl. GSF)}}}}]
+    }
+  }
+}
+\DeclareNameAlias{author}{family-given}
+\DeclareNameAlias{sortname}{family-given}
+% Highlight Gerrit's complete name wherever it appears in an ordinary author
+% list. Collaboration-only author labels are literal names and remain unchanged.
+\renewcommand*{\mkbibcompletenamefamilygiven}[1]{%
+  \ifdefstring{\namepartfamily}{Farren}{\mkbibbold{#1}}{#1}}
+\DeclareFieldFormat[article]{title}{#1}
+\DeclareFieldFormat[article]{journaltitle}{\mkbibemph{#1}}
+\DeclareFieldFormat[article]{volume}{#1}
+\DeclareFieldFormat[article]{number}{\mkbibparens{#1}}
+\DeclareFieldFormat[article]{pages}{#1}
+\DeclareFieldFormat{eprint}{#1}
+\DeclareFieldFormat{doi}{doi\addcolon\space\nolinkurl{#1}}
+\setlength{\bibhang}{0pt}
+\setlength{\bibitemsep}{0.7\baselineskip}
+
+\DeclareBibliographyDriver{article}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \printnames{author}%
+  \setunit{\addperiod\space}%
+  \printfield{title}%
+  \setunit{\addperiod\space}%
+  \iffieldundef{journaltitle}
+    {\iffieldundef{eprint}
+       {}
+       {\printtext{\mkbibemph{arXiv e-prints}}%
+        \setunit{\addcomma\space}%
+        \printtext{art.\space arXiv\addcolon\printfield[eprint]{eprint}}}}
+    {\printfield{journaltitle}%
+     \setunit{\addcomma\space}%
+     \printfield{volume}%
+     \printfield{number}%
+     \iffieldundef{pages}{}{\setunit{\addcolon}\printfield{pages}}}%
+  \setunit{\addcomma\space}%
+  \printdate%
+  \newunit\newblock
+  \printfield{note}%
+  \iffieldundef{doi}{}{\newunit\newblock\printfield{doi}}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyCategory{firstauthor}
+\DeclareBibliographyCategory{selectedcoauthor}
+\addtocategory{firstauthor}{Farren:2024rla,Farren:2023yna,ACT:2023oei,Farren:2021grl,Farren:2021jcd,Farren:2021alma}
+\addtocategory{selectedcoauthor}{Sailer:2025lxj,Hadzhiyska:2025mvt,AtacamaCosmologyTelescope:2025blo,AtacamaCosmologyTelescope:2025nti,Qu:2024sfu,Wenzl:2024sug,ACT:2023kun,ACT:2023dou,Philcox:2022sgj,Philcox:2020xbv}
+\defbibheading{subbibliography}[\refname]{%
+  \par\addvspace{0.6\baselineskip}%
+  \noindent{\large\color{color1}#1}\par\nobreak\smallskip}
+
+\name{Gerrit}{Farren}
+\title{Curriculum Vitae}
+\email{gfarren@lbl.gov}
+\ifapplicationcv
+  \InputIfFileExists{../private-contact.tex}{}{\PackageError{cv}{Missing ../private-contact.tex}{Copy private-contact.example.tex to private-contact.tex and fill in the private values.}}
+  \address{\privateaddress}{}{}
+  \phone[mobile]{\privatephone}
+  \extrainfo{\emailsymbol\emaillink{\privateemail}\\\homepagesymbol\link{gerrfarr.github.io}}
+\else
+  \extrainfo{\homepagesymbol\link{gerrfarr.github.io}}
+\fi
+
+\begin{document}
+\makecvtitle
+\vspace{-0.7cm}
+
+I am an Owen Chamberlain Postdoctoral Fellow at Lawrence Berkeley National Laboratory. I obtained my PhD in Applied Mathematics and Theoretical Physics from the University of Cambridge in July 2024 and a Bachelor of Science in Physics from Haverford College in May 2020. My interests lie at the intersection of theoretical and observational cosmology. I analyse the large-scale structure of the Universe using galaxy surveys and gravitational lensing of the cosmic microwave background. I develop and test new approaches and models to probe fundamental physics such as neutrino masses, dark matter properties, and structure formation.
+
+\section{Education}
+\cventry{Oct 2020 -- July 2024}{PhD Applied Mathematics and Theoretical Physics}{University of Cambridge}{Cambridge, United Kingdom}{}{}
+\cventry{Aug 2016 -- May 2020}{BSc Physics}{Haverford College}{Haverford, PA, United States}{}{}
+
+\section{Employment}
+\cventry{Sep 2024 -- present}{Owen Chamberlain Postdoctoral Fellow}{Lawrence Berkeley National Laboratory}{Berkeley, CA, United States}{}{}
+\cventry{May 2023 -- June 2023}{Affiliate Researcher}{Lawrence Berkeley National Laboratory}{Berkeley, CA, United States}{}{}
+\cventry{Oct 2020 -- May 2024}{Undergraduate Supervisor}{University of Cambridge}{Cambridge, United Kingdom}{}{}
+\cventry{Oct 2021 -- Jan 2022}{Example Class Instructor}{University of Cambridge}{Cambridge, United Kingdom}{}{}
+
+\section{Awards and Recognitions}
+\cventry{2024 -- present}{Owen Chamberlain Postdoctoral Fellowship}{Lawrence Berkeley National Laboratory}{}{}{}
+\cventry{2020 -- 2024}{Isaac Newton Studentship}{University of Cambridge}{}{}{}
+\cventry{2020 -- 2023}{Honorary Vice Chancellor's Award}{University of Cambridge}{}{}{}
+\cventry{2020 -- 2023}{Helen Stone Scholarship}{University of Cambridge}{}{}{}
+\cventry{2020}{American Physical Society LeRoy Apker Award finalist}{Haverford College}{}{}{}
+\cventry{2019}{Royal Astronomical Society Undergraduate Research Bursary}{Durham University}{}{}{}
+\cventry{2019}{\textit{Phi Beta Kappa}}{Haverford College}{Inducted junior year}{}{}
+\cventry{2016 -- 2020}{Class of 1950 International Student Scholarship}{Haverford College}{}{}{}
+\cventry{2016 -- 2017}{The Robert Maquinay 1948 Scholarship \textit{and} C.V. Star Scholarship}{Haverford College}{}{}{}
+
+\section{Publications}
+\nocite{Farren:2024rla,Farren:2023yna,ACT:2023oei,Farren:2021grl,Farren:2021jcd,Farren:2021alma}
+\printbibliography[category=firstauthor,heading=subbibliography,title={First-author publications}]
+
+\nocite{Sailer:2025lxj,Hadzhiyska:2025mvt,AtacamaCosmologyTelescope:2025blo,AtacamaCosmologyTelescope:2025nti,Qu:2024sfu,Wenzl:2024sug,ACT:2023kun,ACT:2023dou,Philcox:2022sgj,Philcox:2020xbv}
+\printbibliography[category=selectedcoauthor,heading=subbibliography,title={Selected co-authored works}]
+
+\section{Selected Talks}
+\cventry{Aug 2026}{The Dark Energy Spectroscopic Instrument--CMB lensing cross-correlations with DR2}{New Frontiers in Cosmology}{A Coru\~na, Spain}{(contributed talk)}{}
+\cventry{Aug 2025}{Multi-probe hints for beyond-$\mathbf{\Lambda}$CDM physics---Untangling evidence from DESI, CMB, and more}{Evolving Cosmos Workshop}{RIKEN iTHEMS, Saitama, Japan}{(invited talk)}{}
+\cventry{Jul 2025}{Joint view of SZ and X-ray observations from ACT and eROSITA around DESI LRGs}{Cosmic Ecosystems}{Perimeter Institute, Waterloo, Canada}{(contributed talk)}{}
+\cventry{Jan 2025}{The Atacama Cosmology Telescope: Multi-probe cosmology with ACT CMB lensing and CMB lensing--galaxy cross-correlations}{Rencontres du Vietnam 2025}{Quy Nhon, Vietnam}{(invited talk)}{}
+\cventry{Nov 2023}{The Atacama Cosmology Telescope: Cosmology from DR6 CMB lensing cross-correlations with unWISE}{Cosmology and Particle Physics Seminar}{University of Geneva, Switzerland}{(invited seminar)}{}
+\cventry{Nov 2023}{The Atacama Cosmology Telescope: Cosmology from DR6 CMB lensing and cross-correlations with unWISE}{Waterloo Centre for Astrophysics Seminar}{University of Waterloo, Canada}{(invited seminar)}{}
+\cventry{Oct 2023}{The Atacama Cosmology Telescope: DR6 lensing release and cross-correlations with unWISE}{CosmoPalooza 2023}{Online}{(invited talk)}{}
+\cventry{Apr 2022}{Measuring $\mathbf{H_0}$ using the equality scale with present and future galaxy surveys}{American Physical Society April Meeting 2022}{New York City, USA}{(contributed talk)}{}
+
+\section{Collaborations}
+\cvitem{}{I am a member of several cosmology collaborations focusing on current and future surveys, including:}
+\cventry{}{Atacama Cosmology Telescope Collaboration}{}{Previous-generation CMB observatory in the Atacama Desert, Chile}{}{}
+\cventry{}{Simons Observatory Collaboration}{}{State-of-the-art CMB observatory in the Atacama Desert, Chile; currently serving as cross-correlation working group co-chair}{}{}
+\cventry{}{Dark Energy Spectroscopic Instrument}{}{Spectroscopic galaxy survey using the Mayall Telescope at Kitt Peak, USA; currently co-leading the Data Release 2 CMB lensing cross-correlation analysis}{}{}
+\cventry{}{Legacy Survey of Space and Time Dark Energy Science Collaboration}{}{Photometric galaxy survey beginning operations at the Vera C. Rubin Observatory on Cerro Pach\'on, Chile}{}{}
+
+\end{document}

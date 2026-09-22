@@ -358,13 +358,24 @@
         </div>
         {{ end }}
 
-        {{/* CV Download Button */}}
-        {{ $button_raw := index $content "button" }}
-        {{ if and $button_raw (reflect.IsMap $button_raw) }}
+        {{/* Document download buttons. Keep support for the theme's singular button field. */}}
+        {{ $buttons := slice }}
+        {{ $buttons_raw := index $content "buttons" }}
+        {{ if and $buttons_raw (reflect.IsSlice $buttons_raw) }}
+          {{ $buttons = $buttons_raw }}
+        {{ else }}
+          {{ $button_raw := index $content "button" }}
+          {{ if and $button_raw (reflect.IsMap $button_raw) }}
+            {{ $buttons = $buttons | append $button_raw }}
+          {{ end }}
+        {{ end }}
+        {{ if $buttons }}
+        <div class="mb-16 flex flex-wrap gap-4">
+          {{ range $buttons }}
           {{ $button_text := "" }}
           {{ $button_url := "" }}
-          {{ with index $button_raw "text" }}{{ $button_text = printf "%v" . }}{{ end }}
-          {{ with index $button_raw "url" }}{{ $button_url = printf "%v" . }}{{ end }}
+          {{ with index . "text" }}{{ $button_text = printf "%v" . }}{{ end }}
+          {{ with index . "url" }}{{ $button_url = printf "%v" . }}{{ end }}
           {{ $button_text = strings.TrimSpace $button_text }}
           {{ $button_url = strings.TrimSpace $button_url }}
           {{ if and $button_text $button_url }}
@@ -379,14 +390,14 @@
             {{ else if in (slice "http" "https") $scheme }}
               {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
             {{ end }}
-            <div class="mb-16">
-              <a href="{{ $button_link | safeURL }}" {{ $target | safeHTMLAttr }}
-                 class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white font-bold text-lg rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
-                {{ partial "functions/get_icon" (dict "name" "document-arrow-down" "attributes" "class='w-5 h-5 mr-3'") }}
-                {{ $button_text }}
-              </a>
-            </div>
+            <a href="{{ $button_link | safeURL }}" {{ $target | safeHTMLAttr }}
+               class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white font-bold text-lg rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+              {{ partial "functions/get_icon" (dict "name" "document-arrow-down" "attributes" "class='w-5 h-5 mr-3'") }}
+              {{ $button_text }}
+            </a>
           {{ end }}
+          {{ end }}
+        </div>
         {{ end }}
 
         {{/* Education + Experience (local override: side-by-side, compact) */}}
@@ -406,7 +417,7 @@
             </div>
             <div class="flex flex-col gap-2">
               {{ range $experience }}
-              {{ if reflect.IsMap . }}
+              {{ if and (reflect.IsMap .) (ne (index . "show_on_home") false) }}
               {{ $role := "" }}{{ with index . "role" }}{{ $role = printf "%v" . }}{{ end }}
               {{ $org := "" }}{{ with index . "org" }}{{ $org = printf "%v" . }}{{ end }}
               {{ $start := "" }}{{ with index . "start" }}{{ $start = printf "%v" . }}{{ end }}

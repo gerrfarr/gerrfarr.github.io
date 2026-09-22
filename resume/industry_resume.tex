@@ -1,0 +1,243 @@
+\documentclass[11pt,a4paper,sans]{moderncv}
+
+% Industry-resume skeleton using the same layout as the academic CV.
+% Replace every grey [FILL IN: ...] placeholder before submitting.
+% Aim for two pages once the content is complete.
+
+\moderncvstyle{classic}
+\moderncvcolor{blue}
+\nopagenumbers{}
+
+% Building with jobname resume_G_Farren-application enables private contact details.
+% The default resume_G_Farren.pdf is safe to publish on the website.
+\newif\ifapplicationresume
+\ifnum\pdfstrcmp{\jobname}{resume_G_Farren-application}=0
+  \applicationresumetrue
+\else
+  \applicationresumefalse
+\fi
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[scale=0.86]{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{csquotes}
+\usepackage{xfrac}
+
+% Use the same publication database as the academic CV and website. The resume-only database contains work that is not yet ready for the public publication list.
+\usepackage[
+  backend=biber,
+  style=authoryear,
+  sorting=none,
+  giveninits=true,
+  uniquename=init,
+  maxbibnames=5,
+  minbibnames=5,
+  doi=false,
+  url=false,
+  isbn=false
+]{biblatex}
+\addbibresource{../publications.bib}
+\addbibresource{resume_publications.bib}
+
+\DeclareNameAlias{author}{family-given}
+\DeclareNameAlias{sortname}{family-given}
+\renewcommand*{\mkbibcompletenamefamilygiven}[1]{%
+  \ifdefstring{\namepartfamily}{Farren}{\mkbibbold{#1}}{#1}}
+\DeclareFieldFormat[article,unpublished]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[article]{journaltitle}{\mkbibemph{#1}}
+\DeclareFieldFormat[article]{volume}{#1}
+\DeclareFieldFormat[article]{number}{\mkbibparens{#1}}
+\DeclareFieldFormat[article]{pages}{#1}
+\setlength{\bibhang}{1.2em}
+\setlength{\bibitemsep}{0.55\baselineskip}
+
+% Compact bibliography driver suited to a two-page resume.
+\DeclareBibliographyDriver{article}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \printnames{author}%
+  \setunit{\addperiod\space}%
+  \printfield{title}%
+  \setunit{\addperiod\space}%
+  \printfield{journaltitle}%
+  \setunit{\addspace}%
+  \printfield{volume}%
+  \printfield{number}%
+  \iffieldundef{pages}{}{\setunit{\addcomma\space}\printfield{pages}}%
+  \iffieldundef{year}
+    {}
+    {\setunit{\addspace}\printtext[parens]{\printdate}}%
+  \newunit\newblock
+  \printfield{note}%
+  \usebibmacro{finentry}}
+\DeclareBibliographyAlias{unpublished}{article}
+
+\setlength{\hintscolumnwidth}{3.5cm}
+\setlist[itemize]{
+  leftmargin=1.2em,
+  itemsep=2pt,
+  topsep=2pt,
+  parsep=0pt,
+  partopsep=0pt
+}
+
+\newcommand{\placeholder}[1]{%
+  \textcolor{gray}{\emph{[FILL IN: #1]}}%
+}
+
+\usepackage[normalem]{ulem}
+
+\newcommand{\resumelink}[2]{%
+	\href{#1}{%
+		\textcolor{color1}{%
+			\begingroup
+			\setlength{\ULdepth}{1.5pt}%
+			\uline{#2}%
+			\endgroup
+		}%
+	}%
+}
+
+% Personal information
+\name{Gerrit}{Farren}
+\title{Cosmologist \& Research Engineer}
+\email{gfarren@lbl.gov}
+\ifapplicationresume
+  \InputIfFileExists{../private-contact.tex}{}{\PackageError{resume}{Missing ../private-contact.tex}{Copy private-contact.example.tex to private-contact.tex and fill in the private values.}}
+  \address{\privateaddress}{}{}
+  \phone[mobile]{\privatephone}
+  \extrainfo{%
+    \emailsymbol\emaillink{\privateemail}\\
+    \homepagesymbol\link{gerrfarr.github.io}\\
+    \httplink{github.com/gerrfarr}\\
+    \href{https://scholar.google.com/citations?user=JeUYYOUAAAAJ\&hl=en}{Google Scholar}%
+  }
+\else
+  \extrainfo{%
+    \homepagesymbol\link{gerrfarr.github.io}\\
+    \httplink{github.com/gerrfarr}\\
+    \href{https://scholar.google.com/citations?user=JeUYYOUAAAAJ\&hl=en}{Google Scholar}%
+  }
+\fi
+
+\begin{document}
+\makecvtitle
+\vspace{-0.8cm}
+
+% Keep this to two or three lines. Establish professional identity, systems built, and what distinguishes your approach. Do not lead with degrees.
+\section{Profile}
+\cvitem{}{Cosmologist and research engineer with experience designing, building, evaluating and deploying end-to-end systems for scientific analysis and AI-supported research. Created CLArXivR, an LLM-based platform for scientific literature discovery and comprehension, while co-leading large-scale cosmological analyses within DESI.}
+
+% Page 1 should be dominated by CLArXivR and DESI. Three bullets per project is the default. Uncomment at most one optional CLArXivR bullet if space permits.
+\section{Selected Technical Projects}
+
+\cventry{CLArXivR}
+  {Creator \& Lead Developer}
+  {\resumelink{https://clarxivr.org}{clarxivr.org}\hspace{1mm}\textbar\hspace{1mm}\resumelink{https://clarxivr.org/how-it-works}{How it works}}
+  {}
+  {}
+  {\begin{itemize}
+    \item Built and deployed CLArXivR to help researchers keep up with new literature; it ranks newly released arXiv papers against researchers’ libraries and uses LLMs to explain relevant work in the context of their research.
+    \item Designed its retrieval and paper analysis pipeline, combining embeddings, feedback-aware ranking, cross-encoder reranking, and contextual synthesis; now extending it with a tool-using research assistant.
+    \item Built fixture-based evaluations for factual support, coverage, and cross-paper connection quality. Detected reduced coverage after a model update, traced it to stricter adherence to prompts tuned for the previous version, and guided prompt revisions to address the regression.
+    \item Built a fault-tolerant Python backend that keeps analyses running through browser disconnects, retries transient model failures, and validates and repairs malformed output. Used concurrency controls and caching to prevent race conditions and redundant processing.
+  \end{itemize}}
+
+\cventry{DESI $\times$ CMB Lensing}
+  {Analysis Co-Lead}
+  {Lawrence Berkeley National Laboratory}
+  {}
+  {}
+  {\begin{itemize}
+    \item Led development of the measurement and analysis pipeline for DESI–CMB lensing cross-correlations, processing tens of millions of galaxies across six samples and coordinating integration across the collaboration.
+    \item Designed a shared data framework that lets collaborators reuse computed results with automatic provenance tracking and validation. A common serial/MPI interface handles data partitioning, aggregation, and parallelizes computations across available resources.
+    \item Developed modular inference software so researchers can swap theory and likelihood components; used JAX just-in-time compilation and analytic marginalization to reduce computational cost.
+    \item Implemented validation and systematic-error control, enabling robust sub-percent constraints on cosmic structure growth and the universe's expansion history.
+  \end{itemize}}
+
+% Keep the skills section compact. Delete any item you would not want to discuss technically in an interview.
+\section{Technical Skills}
+\cvitem{Languages}{Python, SQL, Bash}
+\cvitem{LLM \& retrieval}{Semantic retrieval, embeddings, reranking, source-grounded evaluation}
+\cvitem{Statistical inference}{Bayesian inference, Markov chain Monte Carlo (MCMC), likelihood modeling,\newline covariance estimation, simulation-based validation}
+\cvitem{Signal analysis}{3D Fourier- and spherical-harmonic methods, power- and cross-spectrum estimation}
+\cvitem{Scientific computing}{JAX, NumPy/SciPy, numerical integration, surrogate modeling}
+\cvitem{Parallel computing}{MPI, parallel HDF5, Slurm}
+\cvitem{Engineering}{FastAPI, package and API design, Git, CI/CD, pytest}
+
+% OPTIONAL THIRD PROJECT: Uncomment only if it fills a missing capability and does not displace stronger CLArXivR or DESI evidence.
+%
+% \cventry{\placeholder{Dates}}
+%   {\placeholder{Project name --- role}}
+%   {\placeholder{Organization or link}}
+%   {}{}{
+%   \begin{itemize}
+%     \item \placeholder{What you personally built and why it was difficult.}
+%     \item \placeholder{Evidence of reuse, reliability, adoption, or impact.}
+%   \end{itemize}}
+
+% Use this section for broader remit, leadership, collaboration, and organizational impact. Avoid repeating project mechanics from above.
+\newpage
+\section{Professional Experience}
+
+\cventry{Sep 2024--present}
+  {Owen Chamberlain Postdoctoral Fellow}
+  {Physics Division, Lawrence Berkeley National Laboratory}
+  {Berkeley, CA}
+  {}
+  {\begin{itemize}
+    \item Developed and led an independent research program focused on multi-tracer analyses and cosmic structure formation, including methods for systematic-error control that advance CMB lensing cross-correlations as precision cosmological probes.
+    \item Co-lead a key DESI DR2 analysis and the Simons Observatory cross-correlation working group; served on Simons Observatory Collaboration's talks panel.
+    \item Mentored and co-supervised undergraduate, post-baccalaureate, and PhD students on projects resulting in publications.
+  \end{itemize}}
+
+\cventry{Oct 2020--Jul 2024}
+  {PhD Researcher}
+  {Department of Applied Mathematics and Theoretical Physics, University of Cambridge}
+  {Cambridge, United Kingdom}
+  {}
+  {\begin{itemize}
+    \item Developed and validated methods for precision cosmology, including a way to measure cosmic expansion from galaxy-survey data without relying on the field's standard calibration scale. Independent studies have since adopted and extended this method.
+    \item Led open-ended research to refine this calibration-independent approach, testing successive methods and diagnosing why they discarded useful information or retained unwanted calibration dependence. Developed and validated a revised model that removed the dependence while preserving useful information.
+    \item Taught undergraduate and master’s students in classes and tutorials, adapting explanations of complex scientific concepts to different levels of preparation.
+  \end{itemize}}
+
+% Optional compact line. Delete if it adds little.
+%\cvitem{Earlier roles}{\placeholder{LBNL Affiliate Researcher and Cambridge teaching roles; include only if space remains.}}
+
+% This replaces the long academic bibliography without hiding the academic record. Publication metadata is maintained in BibTeX, not inline here.
+\section{Selected Publications}
+
+\nocite{Farren:DESIDR2CMBLensing,Sailer:2025lxj,ACT:2023oei,Farren:2021grl}
+\printbibliography[heading=none]
+
+\section{Education}
+\cventry{2024}
+  {PhD, Applied Mathematics and Theoretical Physics}
+  {University of Cambridge}
+  {\newline Cambridge, United Kingdom}
+  {}{}
+\cventry{2020}
+  {BSc, Physics}
+  {Haverford College}
+  {Haverford, PA}
+  {}{}
+
+\cventry{Self-directed study}{\href{https://pad.gwdg.de/s/ZwIoM-Arn}{Machine Learning for Physicists}}{}{Florian Marquardt}{FAU Erlangen-N\"urnberg}{Neural-network training, convolutional and recurrent networks, representation learning, generative modeling, and reinforcement learning, with Python/JAX exercises.}
+
+% Delete this section if the space is more valuable for engineering evidence.
+\section{Selected Fellowships \& Awards}
+\cventry{2024--present}
+{Owen Chamberlain Postdoctoral Fellowship}
+{Lawrence Berkeley National Laboratory}
+{}{}{}
+
+\cventry{2020--2024}
+{Isaac Newton Studentship\textnormal{; }
+	Helen Stone Scholarship\textnormal{; and }\newline
+	Honorary Vice-Chancellor's Award}
+{University of Cambridge}
+{}{}{}
+\end{document}

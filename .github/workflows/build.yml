@@ -39,6 +39,28 @@ jobs:
         # Fetch history for Hugo's .GitInfo and .Lastmod
         fetch-depth: 0
 
+    - name: Check CV publication selection
+      run: python3 cv/check_publications.py
+
+    - name: Build public CV
+      uses: xu-cheng/latex-action@v4
+      with:
+        root_file: cv.tex
+        working_directory: cv
+        texlive_version: 2026
+
+    - name: Build public resume
+      uses: xu-cheng/latex-action@v4
+      with:
+        root_file: industry_resume.tex
+        working_directory: resume
+        texlive_version: 2026
+
+    - name: Name public document artifacts
+      run: |
+        cp cv/cv.pdf cv/cv_G_Farren.pdf
+        cp resume/industry_resume.pdf resume/resume_G_Farren.pdf
+
     - name: Setup Node.js
       uses: actions/setup-node@v6
       with:
