@@ -103,18 +103,18 @@
 % Personal information
 \name{Gerrit}{Farren}
 \title{Cosmologist \& Research Engineer}
-\email{gfarren@lbl.gov}
 \ifapplicationresume
   \InputIfFileExists{../private-contact.tex}{}{\PackageError{resume}{Missing ../private-contact.tex}{Copy private-contact.example.tex to private-contact.tex and fill in the private values.}}
+  \email{\privateemail}
   \address{\privateaddress}{}{}
   \phone[mobile]{\privatephone}
   \extrainfo{%
-    \emailsymbol\emaillink{\privateemail}\\
     \homepagesymbol\link{gerrfarr.github.io}\\
     \httplink{github.com/gerrfarr}\\
     \href{https://scholar.google.com/citations?user=JeUYYOUAAAAJ\&hl=en}{Google Scholar}%
   }
 \else
+  \email{gfarren@lbl.gov}
   \extrainfo{%
     \homepagesymbol\link{gerrfarr.github.io}\\
     \httplink{github.com/gerrfarr}\\
@@ -128,7 +128,7 @@
 
 % Keep this to two or three lines. Establish professional identity, systems built, and what distinguishes your approach. Do not lead with degrees.
 \section{Profile}
-\cvitem{}{Cosmologist and research engineer with experience designing, building, evaluating and deploying end-to-end systems for scientific analysis and AI-supported research. Created CLArXivR, an LLM-based platform for scientific literature discovery and comprehension, while co-leading large-scale cosmological analyses within DESI.}
+\cvitem{}{Cosmologist and research engineer with experience building and evaluating systems for scientific analysis and AI-supported research. Developed cosmological inference methods during PhD research at the University of Cambridge and now co-lead large-scale DESI analyses as Chamberlain Fellow at Lawrence Berkeley National Laboratory. Created CLArXivR, an LLM-based platform for scientific literature discovery.}
 
 % Page 1 should be dominated by CLArXivR and DESI. Three bullets per project is the default. Uncomment at most one optional CLArXivR bullet if space permits.
 \section{Selected Technical Projects}
@@ -141,7 +141,7 @@
   {\begin{itemize}
     \item Built and deployed CLArXivR to help researchers keep up with new literature; it ranks newly released arXiv papers against researchers’ libraries and uses LLMs to explain relevant work in the context of their research.
     \item Designed its retrieval and paper analysis pipeline, combining embeddings, feedback-aware ranking, cross-encoder reranking, and contextual synthesis; now extending it with a tool-using research assistant.
-    \item Built fixture-based evaluations for factual support, coverage, and cross-paper connection quality. Detected reduced coverage after a model update, traced it to stricter adherence to prompts tuned for the previous version, and guided prompt revisions to address the regression.
+    \item Designed and ran evaluations of factual support, coverage, and cross-paper connection quality in LLM-generated paper analyses. Detected reduced coverage after a model update, traced it to stricter adherence to prompts tuned for the previous version, and guided prompt revisions to address the regression.
     \item Built a fault-tolerant Python backend that keeps analyses running through browser disconnects, retries transient model failures, and validates and repairs malformed output. Used concurrency controls and caching to prevent race conditions and redundant processing.
   \end{itemize}}
 
@@ -152,9 +152,9 @@
   {}
   {\begin{itemize}
     \item Led development of the measurement and analysis pipeline for DESI–CMB lensing cross-correlations, processing tens of millions of galaxies across six samples and coordinating integration across the collaboration.
+    \item Implemented validation and systematic-error control, enabling robust sub-percent constraints on cosmic structure growth and the universe's expansion history.
     \item Designed a shared data framework that lets collaborators reuse computed results with automatic provenance tracking and validation. A common serial/MPI interface handles data partitioning, aggregation, and parallelizes computations across available resources.
     \item Developed modular inference software so researchers can swap theory and likelihood components; used JAX just-in-time compilation and analytic marginalization to reduce computational cost.
-    \item Implemented validation and systematic-error control, enabling robust sub-percent constraints on cosmic structure growth and the universe's expansion history.
   \end{itemize}}
 
 % Keep the skills section compact. Delete any item you would not want to discuss technically in an interview.
